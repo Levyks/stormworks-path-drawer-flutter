@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'option.dart';
+
+import 'create_map_dialog.dart';
 import 'placeholder_option.dart';
+import '../misc/header.dart';
+
 import '../../classes/map.dart';
+
 
 class Menu extends StatefulWidget {
   
@@ -21,16 +26,23 @@ class _MenuState extends State<Menu> {
 
   int get numberOfPages => maps.length ~/ pageSize + (maps.length % pageSize == 0 ? 0 : 1);
 
-  decrementPage() {
+  void decrementPage() {
     setState(() {
       currentPage--;
     });
   }
 
-  incrementPage() {
+  void incrementPage() {
     setState(() {
       currentPage++;
     });
+  }
+
+  void createMap() {
+    showDialog(
+      context: context, 
+      builder: (context) => const CreateMapDialog()
+    );
   }
 
   @override
@@ -38,34 +50,39 @@ class _MenuState extends State<Menu> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
-          "Choose a map:",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Container(
-          constraints: const BoxConstraints(maxWidth: 800),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              mainAxisSpacing: 25,
-              crossAxisSpacing: 30,
-              crossAxisCount: 3,
-              childAspectRatio: 4/3,
+        const Header(title: "Choose a map"),
+
+        Column(
+          children:[
+            Container(
+              constraints: const BoxConstraints(maxWidth: 800),
+              margin: const EdgeInsets.only(bottom: 20),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  mainAxisSpacing: 25,
+                  crossAxisSpacing: 30,
+                  crossAxisCount: 3,
+                  childAspectRatio: 4/3,
+                ),
+                shrinkWrap: true,
+                itemCount: pageSize,
+                itemBuilder: (context, index) {
+                  var realIndex = currentPage * pageSize + index; 
+                  return realIndex < maps.length ? 
+                    Option(
+                      map: maps[realIndex],
+
+                    ) : 
+                    PlaceholderOption(
+                      onTap: createMap,
+                    );
+                },
+              )
             ),
-            shrinkWrap: true,
-            itemCount: pageSize,
-            itemBuilder: (context, index) {
-              var realIndex = currentPage * pageSize + index; 
-              return realIndex < maps.length ? 
-                Option(
-                  map: maps[realIndex],
-                ) : 
-                const PlaceholderOption();
-            },
-          )
+            ElevatedButton(onPressed: createMap, child: const Text("New Map"))
+          ]
         ),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -82,6 +99,7 @@ class _MenuState extends State<Menu> {
             ElevatedButton(onPressed: (currentPage + 1) < numberOfPages ? incrementPage : null, child: const Icon(Icons.arrow_forward))
           ],
         )
+
       ],
     );
   }

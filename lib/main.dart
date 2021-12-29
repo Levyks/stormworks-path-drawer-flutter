@@ -1,7 +1,13 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'widgets/home/home.dart';
+ import 'package:provider/provider.dart'; 
 import 'package:window_size/window_size.dart';
+
+import 'pages/home.dart';
+//import 'pages/map_selector.dart';
+
+import 'classes/server.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,7 +18,12 @@ void main() {
     setWindowMaxSize(Size.infinite);
   }
 
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => Server(),
+      child: const MyApp()
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -21,7 +32,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Welcome to Flutter',
       home: Home(),
     );
   }

@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'menu.dart';
+import '../widgets/map_selector/menu.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
+class MapSelector extends StatelessWidget {
+  const MapSelector({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,5 +16,4 @@ class _HomeState extends State<Home> {
       )
     );
   }
-  
 }

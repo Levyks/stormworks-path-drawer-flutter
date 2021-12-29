@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../classes/map.dart';
-import '../grow_on_hover.dart';
+import '../misc/grow_on_hover.dart';
 
 class Option extends StatelessWidget {
 

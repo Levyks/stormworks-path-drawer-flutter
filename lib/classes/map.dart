@@ -20,9 +20,6 @@ class Map {
     Map('Isle Of Donkk', imgPath: 'assets/img/maps/isle-of-donkk.png'),
     Map('Isle Of Donkk + Camodo', imgPath: 'assets/img/maps/donkk-camodo.png'),
     Map('Main Island', imgPath: 'assets/img/maps/main-island.png'),
-    Map('Isle Of Donkk', imgPath: 'assets/img/maps/isle-of-donkk.png'),
-    Map('Isle Of Donkk + Camodo', imgPath: 'assets/img/maps/donkk-camodo.png'),
-    Map('Main Island', imgPath: 'assets/img/maps/main-island.png'),
   ];
 
 }
